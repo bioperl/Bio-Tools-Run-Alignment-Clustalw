@@ -1,3 +1,4 @@
+# -*-Perl-*-
 ## Bioperl Test Harness Script for Modules
 ##
 
@@ -23,7 +24,6 @@ BEGIN { $| = 1; print "1..9\n";
 	use vars qw($loaded); }
 # Modify following line as required to point to clustalw program directory on your system
 BEGIN { 
-    #$ENV{CLUSTALDIR} = '/home/peter/clustalw1.8/' if( !defined $ENV{CLUSTALDIR} ); 
 }
 
 END {print "not ok 1\n" unless $loaded;}
@@ -134,7 +134,3 @@ my $seq = $str2->next_seq();
 $aln = $factory->profile_align($aln1,$seq);
 
 test 9, $aln->{order}->{'1'} eq 'CATH_HUMAN-1-335', "failed adding new sequence to alignment";
-
-
-
-
