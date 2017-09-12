@@ -1,14 +1,10 @@
-#
-# BioPerl module for Bio::Tools::Run::Alignment::Clustalw
-#
-# You may distribute this module under the same terms as perl itself
-# POD documentation - main docs before the code
+# ABSTRACT: Object for the calculation of a multiple sequence alignment from a set of unaligned sequences or alignments using the Clustalw program
+# AUTHOR: Peter Schattner <schattner@alum.mit.edu>
+# OWNER: Peter Schattner <schattner@alum.mit.edu>
+# LICENSE: Perl_5
 
-=head1 NAME
-
-Bio::Tools::Run::Alignment::Clustalw - Object for the calculation of a
-multiple sequence alignment from a set of unaligned sequences or
-alignments using the Clustalw program
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# AUTHOR: Sendu Bala <bix@sendu.me.uk>
 
 =head1 SYNOPSIS
 
@@ -557,53 +553,7 @@ object, or through get/set methods of the same name (lowercase).
 	            mismatches in DNA alignments.  This switch makes all
 	            nucleotide mismatches equally weighted.
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to one
-of the Bioperl mailing lists.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support 
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and 
-reponsive experts will be able look at the problem and quickly 
-address it. Please include a thorough description of the problem 
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-the bugs and their resolution.  Bug reports can be submitted via the
-web:
-
-  http://redmine.open-bio.org/projects/bioperl/
-
-=head1 AUTHOR -  Peter Schattner
-
-Email schattner@alum.mit.edu
-
-=head1 CONTRIBUTORS
-
-Jason Stajich jason-AT-bioperl_DOT_org
-Sendu Bala    bix@sendu.me.uk
-
-=head1 APPENDIX
-
-The rest of the documentation details each of the object
-methods. Internal methods are usually preceded with a _
-
 =cut
-
-#'
 
 package Bio::Tools::Run::Alignment::Clustalw;
 
@@ -932,7 +882,7 @@ sub footprint {
     return @results;
 }
 
-=head2  _run
+=internal _run
 
  Title   : _run
  Usage   : Internal function, not to be called directly	
@@ -1075,7 +1025,7 @@ sub _get_tree {
     return $tree;
 }
 
-=head2  _setinput()
+=internal _setinput()
 
  Title   : _setinput
  Usage   : Internal function, not to be called directly	
@@ -1144,7 +1094,7 @@ sub _setinput {
     return;
 }
 
-=head2  _setparams()
+=internal _setparams()
 
  Title   : _setparams
  Usage   : Internal function, not to be called directly	
