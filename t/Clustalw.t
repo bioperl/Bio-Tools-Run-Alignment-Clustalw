@@ -7,7 +7,7 @@ use strict;
 BEGIN {
   use Bio::Root::Test;
   test_begin(-tests => 45);
-  
+
   use_ok('Bio::Tools::Run::Alignment::Clustalw');
   use_ok('Bio::SimpleAlign');
   use_ok('Bio::AlignIO');
@@ -45,34 +45,34 @@ is( $factory->program_name(), 'clustalw',                'Correct exe default na
 SKIP: {
   test_skip(-requires_executable => $factory,
             -tests => 19);
-  
+
   # test all factory methods dependent on finding the executable
   # TODO: isnt( $factory->program_dir, undef,'Found program in an ENV variable' );
   my $ver = $factory->version || 0;
-  
-  # remove last bit 
+
+  # remove last bit
   $ver =~ s{^(\d+\.\d+)\.\d+}{$1};
-  
+
   # clustalw2 isn't supported yet.
   if ($ver < 1.8) {
         diag("ClustalW version $ver not supported");
         skip("ClustalW version $ver not supported", 19);
   }
-  
+
   ok( $ver, "Supported program version $ver" );
-  
+
   # test execution using filename
   my $aln = $factory->align($inputfilename);
-  
+
   # now test the factory error methods etc
   is( $factory->error_string, '',                          'No error occured' );
   isnt( $factory->outfile_name, undef,                     'outfile_name returned something' );
-  
+
   # now test its output
   isa_ok( $aln, 'Bio::SimpleAlign');
   is( $aln->num_sequences, 7,                               'Correct number of seqs returned' );
   is $aln->score, 16047, 'Score';
-  
+
   # test execution using an array of Seq objects
   my $str = Bio::SeqIO->new('-file' => $inputfilename, '-format' => 'Fasta');
   my @seq_array =();
@@ -98,50 +98,50 @@ SKIP: {
 
   my $tree = $factory->tree($aln);
   isa_ok( $tree, 'Bio::Tree::Tree' );
-  
+
   # now test doing profile alignments
   $aln = $factory->profile_align($profile1,$profile2);
   isa_ok( $aln, 'Bio::SimpleAlign' );
   is( $aln->num_sequences, 7,'Correct number of seqs returned' );
-  
+
   # test the run method
   ($aln, $tree) = $factory->run(\@seq_array);
   isa_ok($aln, 'Bio::SimpleAlign');
   isa_ok($tree, 'Bio::Tree::Tree');
-  
+
   ($aln, $tree) = $factory->run($inputfilename);
   isa_ok($aln, 'Bio::SimpleAlign');
-  isa_ok($tree, 'Bio::Tree::Tree');  
-  
+  isa_ok($tree, 'Bio::Tree::Tree');
+
   # test the footprint method
   my @seqs = (Bio::Seq->new(-seq => 'AACCTGGCCAATTGGCCAATTGGGCGTACGTACGT', -id => 'rabbit'),
-	      Bio::Seq->new(-seq => 'ACCCTGGCCAATTGGCCAATTGTAAGTACGTACGT', -id => 'marmot'),
-	      Bio::Seq->new(-seq => 'AAGCTGGCCAATTGGCCAATTAGACTTACGTACGT', -id => 'chimp'),
-	      Bio::Seq->new(-seq => 'AACATGGCCAATTGGCCAATCGGACGTACGTCCGT', -id => 'human'),
-	      Bio::Seq->new(-seq => 'AACCGGGCCAATTGGCCAAGTGGACGTACGTATGT', -id => 'cebus'),
-	      Bio::Seq->new(-seq => 'AACCTAGCCAATTGGCCACTTGGACGTACGTACAT', -id => 'gorilla'),
-	      Bio::Seq->new(-seq => 'AACCTGCCCAATTGGCCGATTGGACGTACGTACGC', -id => 'orangutan'),
-	      Bio::Seq->new(-seq => 'AACCTGGGCAATTGGCAAATTGGACGTACGTACGT', -id => 'baboon'),
-	      Bio::Seq->new(-seq => 'AACCTGGCTAATTGGTCAATTGGACGTACGTACGT', -id => 'rhesus'),
-	      Bio::Seq->new(-seq => 'AACCTGGCCGATTGGCCAATTGGACGTACGTACGT', -id => 'squirrelmonkey'));
-  
+              Bio::Seq->new(-seq => 'ACCCTGGCCAATTGGCCAATTGTAAGTACGTACGT', -id => 'marmot'),
+              Bio::Seq->new(-seq => 'AAGCTGGCCAATTGGCCAATTAGACTTACGTACGT', -id => 'chimp'),
+              Bio::Seq->new(-seq => 'AACATGGCCAATTGGCCAATCGGACGTACGTCCGT', -id => 'human'),
+              Bio::Seq->new(-seq => 'AACCGGGCCAATTGGCCAAGTGGACGTACGTATGT', -id => 'cebus'),
+              Bio::Seq->new(-seq => 'AACCTAGCCAATTGGCCACTTGGACGTACGTACAT', -id => 'gorilla'),
+              Bio::Seq->new(-seq => 'AACCTGCCCAATTGGCCGATTGGACGTACGTACGC', -id => 'orangutan'),
+              Bio::Seq->new(-seq => 'AACCTGGGCAATTGGCAAATTGGACGTACGTACGT', -id => 'baboon'),
+              Bio::Seq->new(-seq => 'AACCTGGCTAATTGGTCAATTGGACGTACGTACGT', -id => 'rhesus'),
+              Bio::Seq->new(-seq => 'AACCTGGCCGATTGGCCAATTGGACGTACGTACGT', -id => 'squirrelmonkey'));
+
     my @results = $factory->footprint(\@seqs);
     @results = map { $_->consensus_string } @results;
     is_deeply(\@results, [qw(ATTGG TACGT)], 'footprinting worked');
-  
+
   SKIP: {
-	# TODO: Is this needed, or should min version be bumped to > 1.82. Discuss with module author
+    # TODO: Is this needed, or should min version be bumped to > 1.82. Discuss with module author
     # keeping this to be compatible with older t/Clustalw.t
     skip("clustalw 1.81 & 1.82 contain a profile align bug", 2) unless $ver > 1.82;
-	
-	my $str1 = Bio::AlignIO->new(-file=> $profile1);
+
+    my $str1 = Bio::AlignIO->new(-file=> $profile1);
     my $aln1 = $str1->next_aln();
     my $str2 = Bio::AlignIO->new(-file=> $profile2);
     my $aln2 = $str2->next_aln();
-      
+
     $aln = $factory->profile_align($aln1,$aln2);
     is($aln->get_seq_by_pos(2)->get_nse, 'CATH_HUMAN/1-335', 'Got correct sequence by position');
-	
+
     $str2 = Bio::SeqIO->new(-file=> test_input_file("cysprot1b.fa"));
     my $seq = $str2->next_seq();
     $aln = $factory->profile_align($aln1,$seq);
