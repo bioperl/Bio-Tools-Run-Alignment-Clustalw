@@ -1,3 +1,15 @@
+package Bio::Tools::Run::Alignment::Clustalw;
+
+use strict;
+use Bio::Seq;
+use Bio::SeqIO;
+use Bio::SimpleAlign;
+use Bio::AlignIO;
+use Bio::TreeIO;
+use Bio::Root::IO;
+
+use base qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
+
 # ABSTRACT: Object for the calculation of a multiple sequence alignment from a set of unaligned sequences or alignments using the Clustalw program
 # AUTHOR: Peter Schattner <schattner@alum.mit.edu>
 # OWNER: Peter Schattner <schattner@alum.mit.edu>
@@ -555,18 +567,6 @@ object, or through get/set methods of the same name (lowercase).
 
 =cut
 
-package Bio::Tools::Run::Alignment::Clustalw;
-
-use strict;
-use Bio::Seq;
-use Bio::SeqIO;
-use Bio::SimpleAlign;
-use Bio::AlignIO;
-use Bio::TreeIO;
-use Bio::Root::IO;
-
-use base qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
-
 our @CLUSTALW_PARAMS = qw(output ktuple topdiags window pairgap fixedgap
                           floatgap matrix type transit dnamatrix outfile
                           gapopen gapext maxdiv gapdist hgapresidues pwmatrix
@@ -581,7 +581,6 @@ our @CLUSTALW_SWITCHES = qw(help check options negative noweights endgaps
 our @OTHER_SWITCHES = qw(quiet);
 our $PROGRAM_NAME = 'clustalw';
 our $PROGRAM_DIR = $ENV{'CLUSTALDIR'} || $ENV{'CLUSTALWDIR'};
-
 
 =head2 program_name
 
