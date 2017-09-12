@@ -1,6 +1,9 @@
 package Bio::Tools::Run::Alignment::Clustalw;
 
+use utf8;
 use strict;
+use warnings;
+
 use Bio::Seq;
 use Bio::SeqIO;
 use Bio::SimpleAlign;

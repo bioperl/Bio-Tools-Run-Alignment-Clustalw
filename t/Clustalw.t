@@ -2,7 +2,9 @@
 # $id$
 ## Bioperl Test Harness Script for Modules
 
+use utf8;
 use strict;
+use warnings;
 
 BEGIN {
   use Bio::Root::Test;

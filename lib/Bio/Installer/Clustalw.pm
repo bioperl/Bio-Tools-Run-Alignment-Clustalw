@@ -1,6 +1,10 @@
 package Bio::Installer::Clustalw;
-use vars qw(@ISA %DEFAULTS);
+
+use utf8;
 use strict;
+use warnings;
+
+use vars qw(@ISA %DEFAULTS);
 
 # Object preamble - inherits from Bio::Root::Root
 
