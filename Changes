@@ -2,6 +2,8 @@ Summary of important user-visible changes for Bio-Tools-Run-Alignment-Clustawl
 ------------------------------------------------------------------------------
 
 {{$NEXT}}
+
+1.7.3     2017-09-27 18:30:00+01:00 Europe/London
   * Replace requires_external.t with a check in the Makefile.PL for
     clustalw.  This ensures that the installation fails instead of
     triggering a test failure since a test failure indicates a bug in
