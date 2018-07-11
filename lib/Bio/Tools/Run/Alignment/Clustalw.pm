@@ -541,7 +541,7 @@ object, or through get/set methods of the same name (lowercase).
 
  Title       : TYPE
  Description : (optional) sequence type: protein or DNA. This allows
-                you to explicitly overide the programs attempt at
+                you to explicitly override the programs attempt at
                 guessing the type of the sequence.  It is only useful
                 if you are using sequences with a VERY strange
                 composition.
